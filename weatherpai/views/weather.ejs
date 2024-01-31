@@ -1,0 +1,65 @@
+<head>
+    <link type="text/css" rel="stylesheet" href="/css/styles.css">
+    <title>Weather at <%= weather.name %></title>
+</head>
+<html>
+    <body>
+        <main>
+            <div class="container">
+                <section>
+                    <div class="weather">
+                        <div class="weather-block">
+                            <form action="" method="get" id="search">
+                                <input type="text" name="city" id="city" autocomplete="off" placeholder="Paris">
+                                <button id="submitBtn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="15px" height="15px">
+                                        <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"
+                                              stroke="black"
+                                        />
+                                    </svg>
+                                </button>
+                            </form>
+                            <img src="<%= weather.weather[0].iconURL %>" alt="icon" width="100px" height="100px">
+                            <div class="weather-block-temperature"><%= Math.round(weather.main.temp - 273,15) %>°C</div>
+                            <div>feels like: <%= Math.round(weather.main.temp - 273,15) %>°C</div>
+                            <div class="weather-block-feels"><%= weather.weather[0].description %></div>
+                            <hr>
+                            <h1 class="weather-block-location"><span><%= weather.name %> / <%= weather.sys.country %></span> (<%= Math.round(weather.coord.lat) %>°N, <%= Math.round(weather.coord.lon) %>°W) </h1>
+                            <hr>
+                            <div>Humidity: <%= weather.main.humidity %>%</div>
+                            <div>Pressure: <%= weather.main.pressure %> mb</div>
+                            <div>Wind Speed: <%= weather.wind.speed %>m/s</div>
+                        </div>
+                        <div class="weather-block">
+                            <div class="forecast">
+                                <% forecast.list.forEach(elem => { %>
+                                    <div class="forecast-item">
+                                        <div class="forecast-date"><%= elem.dt %></div>
+                                        <img src="<%= elem.weather[0].iconURL %>" alt="icon">
+                                        <div class="temp"><%= Math.round(elem.temp.min - 273,15) %>°C %> / <%= Math.round(elem.temp.max - 273,15) %>°C  %></div>
+                                        <div class="wind"><%= Math.round(elem.speed) %>m/s (<%= elem.deg %>)</div>
+                                        <div class="sunrise-time">Sunrise: <%= elem.sunrise %></div>
+                                        <div class="sunset-time">Sunset: <%= elem.sunset %></div>
+                                    </div>
+                                <% })%>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+    
+                
+                <section>
+                    <h2>Geolocation of <%= weather.name %></h2>
+                    <iframe id="map" src="<%= map %>" alt="">
+                    </iframe>
+                </section>
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+                SE-2213 Kossinov Viktor
+            </div>
+        </footer>
+        <script src="/js/index.js"></script>
+    </body>
+</html>
