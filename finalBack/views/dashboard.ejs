@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Dashboard</title>
+    <style>
+       
+        .portfolio-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: hidden; 
+            scroll-snap-type: x mandatory;
+            text-align: center;
+            
+        }
+        .portfolio-item {
+            flex: 0 0 auto;
+            width: 100%;
+            scroll-snap-align: start;
+            padding: 20px;
+            background-color: #dfe2e2; 
+        }
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            justify-content: center;
+        }
+        .carousel img {
+            width: 300px; 
+            height: auto;
+            margin-right: 10px;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<a href="/users/logout">Logout</a><br>
+<a href="/">NEWS</a>
+<a href="/yt">YOUTUBE</a>
+<h1>Hello <%= user.charAt(0).toUpperCase() + user.slice(1) %></h1>
+<div class="portfolio-container">
+    <% portfolioItems.forEach(item => { %>
+        <div class="portfolio-item">
+            <h2><%= item.name %></h2>
+            <p><%= item.description %></p>
+            <p>Creation Date: <%= item.createdAt %></p>
+            <div class="carousel">
+                <% item.images.forEach(image => { %>
+                    <img src="/uploads/<%= image %>" alt="<%= item.name %>">
+                <% }); %>
+            </div>
+        </div>
+    <% }); %>
+</div>
+<div class="navigation-buttons">
+    <button onclick="scrollPortfolio(-1)">Previous</button>
+    <button onclick="scrollPortfolio(1)">Next</button>
+</div>
+<footer>
+    KOSSINOV VIKTOR SE-2213
+</footer>
+<script>
+    const portfolioContainer = document.querySelector('.portfolio-container');
+
+    function scrollPortfolio(direction) {
+        const scrollAmount = direction > 0 ? portfolioContainer.offsetWidth : -portfolioContainer.offsetWidth;
+        portfolioContainer.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    }
+</script>
+</body>
+</html>

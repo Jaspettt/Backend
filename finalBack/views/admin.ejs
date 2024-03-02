@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Admin Page</title>
+</head>
+<body>
+<a href="/users/logout">Logout</a>
+<a href="/users/dashboard">Dashboard</a>
+<h1>Admin panel</h1>
+<form action="/admin/add" method="POST" enctype="multipart/form-data" style="text-align:center;">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description"></textarea><br>
+    <label for="images">Images:</label><br>
+    <input type="file" id="images" name="images" multiple accept="image/*"><br><br>
+    <button type="submit">Add Item</button>
+</form>
+
+<form action="/admin/delete" method="POST" style="text-align:center;">
+    <label for="itemId">Enter ID of the item to delete:</label><br>
+    <input type="text" id="itemId" name="itemId"><br><br>
+    <button type="submit">Delete Item</button>
+</form>
+<footer>
+    KOSSINOV VIKTOR SE-2213
+</footer>
+</body>
+</html>

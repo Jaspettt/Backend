@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEWS</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            height: 100vh;
+            
+        }
+        .footer {
+            display: flex;
+            align-self: flex-end;
+            
+            
+        }
+    </style>
+</head>
+<body>
+<a href="/users/dashboard">Dashboard</a>
+
+
+<h1>Latest News</h1>
+    
+    <button onclick="fetchNews('technology')">Technology News</button>
+    <button onclick="fetchNews('sports')">Sports News</button>
+    <button onclick="fetchNews('entertainment')">Entertainment News</button>
+
+    <div id="newsContainer"></div>
+    <footer class="footer">
+        KOSSINOV VIKTOR SE-2213
+    </footer>
+    <script>
+        async function fetchNews(category) {
+            try {
+                const response = await fetch(`https://newsapi.org/v2/top-headlines?category=${category}&apiKey=28e33efdf7f742b0ad29452c7d281430`);
+                const data = await response.json();
+                displayNews(data.articles);
+            } catch (error) {
+                console.error('Error fetching news:', error);
+            }
+        }
+
+        function displayNews(articles) {
+            const newsContainer = document.getElementById('newsContainer');
+            newsContainer.innerHTML = ''; 
+
+            articles.forEach(article => {
+                const articleElement = document.createElement('div');
+                articleElement.innerHTML = `
+                    <h2>${article.title}</h2>
+                    <p>${article.description}</p>
+                    <a href="${article.url}" target="_blank">Read more</a>
+                `;
+                newsContainer.appendChild(articleElement);
+            });
+        }
+    </script>
+</body>
+</html>
